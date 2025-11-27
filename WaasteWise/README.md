@@ -196,16 +196,6 @@ The website uses Tailwind CSS for styling, making it easy to customize:
 - Modify form validation in the JavaScript sections
 - Add new waste categories or recommendations
 
-## Contact & Support
-
-- **Email:** info@wastewise.com
-- **Phone:** +1 (555) 123-4567
-- **Address:** 123 Green Street, Eco City, EC 12345, United States
-- **Hours:** Mon-Fri 9AM-6PM, Sat 10AM-4PM
-
-## License
-
-This project is open for educational and non-commercial use.
 
 ## Future Enhancements
 
@@ -220,3 +210,4 @@ This project is open for educational and non-commercial use.
 ---
 
 **Made with ❤️ for a sustainable future**
+
