@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up – WasteWise</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+.hero-gradient { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); }
+.input-focus:focus { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.15); }
+</style>
+</head>
+
+<body class="bg-gray-50 font-sans text-gray-800">
+
+<!-- Header -->
+<section class="hero-gradient text-white text-center py-12">
+    <i class="fas fa-user-plus text-5xl mb-3"></i>
+    <h1 class="text-4xl font-bold">Create Your Account</h1>
+    <p class="text-green-50 mt-1">Start your WasteWise journey today</p>
+</section>
+
+<!-- Form -->
+<section class="py-12">
+<div class="max-w-xl mx-auto bg-white rounded-lg shadow-lg p-8">
+
+    <form id="signupForm" class="space-y-6">
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div>
+                <label class="font-semibold mb-2 block">
+                    <i class="fas fa-user text-green-600 mr-1"></i>First Name *
+                </label>
+                <input id="firstName" required placeholder="Enter first name"
+                       class="w-full px-4 py-3 border rounded-lg input-focus">
+            </div>
+            <div>
+                <label class="font-semibold mb-2 block">
+                    <i class="fas fa-user text-green-600 mr-1"></i>Last Name *
+                </label>
+                <input id="lastName" required placeholder="Enter last name"
+                       class="w-full px-4 py-3 border rounded-lg input-focus">
+            </div>
+        </div>
+
+        <div>
+            <label class="font-semibold mb-2 block">
+                <i class="fas fa-envelope text-green-600 mr-1"></i>Email *
+            </label>
+            <input type="email" id="email" required placeholder="Enter email address"
+                   class="w-full px-4 py-3 border rounded-lg input-focus">
+        </div>
+
+        <div>
+            <label class="font-semibold mb-2 block">
+                <i class="fas fa-phone text-green-600 mr-1"></i>Phone *
+            </label>
+            <input id="phone" required placeholder="Enter phone number"
+                   class="w-full px-4 py-3 border rounded-lg input-focus">
+        </div>
+
+        <div>
+            <label class="font-semibold mb-2 block">
+                <i class="fas fa-lock text-green-600 mr-1"></i>Password *
+            </label>
+            <div class="relative">
+                <input type="password" id="password" required placeholder="Create a password"
+                       class="w-full px-4 py-3 border rounded-lg input-focus pr-12">
+                <button type="button" id="togglePass"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-green-600">
+                    <i id="eyePass" class="fas fa-eye"></i>
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <label class="font-semibold mb-2 block">
+                <i class="fas fa-lock text-green-600 mr-1"></i>Confirm Password *
+            </label>
+            <div class="relative">
+                <input type="password" id="confirmPassword" required placeholder="Re-enter password"
+                       class="w-full px-4 py-3 border rounded-lg input-focus pr-12">
+                <button type="button" id="toggleConfirm"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-green-600">
+                    <i id="eyeConfirm" class="fas fa-eye"></i>
+                </button>
+            </div>
+        </div>
+
+        <button type="submit"
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg text-lg transition">
+            <i class="fas fa-user-plus mr-2"></i>Create Account
+        </button>
+
+        <p id="msg" class="hidden text-center text-sm font-semibold mt-3"></p>
+    </form>
+
+    <p class="text-center mt-6">
+        Already have an account?
+        <a href="login.html" class="text-green-600 hover:text-green-700 font-semibold">Sign In</a>
+    </p>
+
+</div>
+</section>
+
+<script>
+// Toggle password visibility
+function toggle(input, icon) {
+    input.type = input.type === "password" ? "text" : "password";
+    icon.classList.toggle("fa-eye");
+    icon.classList.toggle("fa-eye-slash");
+}
+togglePass.onclick = () => toggle(password, eyePass);
+toggleConfirm.onclick = () => toggle(confirmPassword, eyeConfirm);
+
+// Form submit
+signupForm.addEventListener("submit", e => {
+    e.preventDefault();
+    if (password.value !== confirmPassword.value) {
+        msg.textContent = "Passwords do not match";
+        msg.className = "text-red-600 text-center text-sm font-semibold mt-3";
+        msg.classList.remove("hidden");
+        return;
+    }
+
+    msg.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Account created successfully! Redirecting...';
+    msg.className = "text-green-600 text-center text-sm font-semibold mt-3";
+    msg.classList.remove("hidden");
+
+    setTimeout(() => location.href = "login.html", 1000);
+});
+</script>
+
+</body>
+</html>

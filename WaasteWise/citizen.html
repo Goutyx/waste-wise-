@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Module - WasteWise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .result-card {
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <script>
+        const savedLang = localStorage.getItem('language') || 'en';
+        document.documentElement.lang = savedLang;
+    </script>
+</head>
+<body class="font-sans text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <a href="index.html?showSplash=true" class="flex items-center gap-2">
+                        <i class="fas fa-leaf text-green-600 text-2xl"></i>
+                        <span class="text-2xl font-bold text-green-600">WasteWise</span>
+                    </a>
+                </div>
+                <div class="flex gap-4 items-center">
+                    <a href="index.html" class="text-gray-600 hover:text-green-600 transition font-semibold" data-i18n="nav.back">Back to Home</a>
+                    <button id="langToggle" class="flex items-center text-gray-600 hover:text-green-600 transition font-semibold border border-gray-300 rounded px-3 py-1 hover:border-green-600">
+                        <i class="fas fa-language mr-1"></i> HI
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-green text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <i class="fas fa-home text-6xl mb-4"></i>
+            <h1 class="text-4xl font-bold mb-4" data-i18n="citizen.hero.title">Citizen Module</h1>
+            <p class="text-xl" data-i18n="citizen.hero.subtitle">Monitor and Reduce Your Household Waste</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-8 text-gray-800" data-i18n="citizen.form.title">Household Waste Assessment</h2>
+                
+                <form id="citizenForm" class="space-y-6">
+                    <!-- Personal Information -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-user text-teal-600 mr-2"></i><span data-i18n="citizen.form.fullName">Full Name *</span>
+                            </label>
+                            <input type="text" id="fullName" placeholder="Enter your name" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" data-i18n="citizen.form.placeholder.name" data-i18n-attr="placeholder" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-city text-teal-600 mr-2"></i><span data-i18n="citizen.form.city">City *</span>
+                            </label>
+                            <input type="text" id="city" placeholder="Enter your city" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" data-i18n="citizen.form.placeholder.city" data-i18n-attr="placeholder" />
+                        </div>
+                    </div>
+
+                    <!-- Family Information -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-users text-teal-600 mr-2"></i><span data-i18n="citizen.form.family">Family Members *</span>
+                            </label>
+                            <input type="number" id="familyMembers" placeholder="Number of family members" min="1" max="20" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" data-i18n="citizen.form.placeholder.family" data-i18n-attr="placeholder" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-home text-teal-600 mr-2"></i><span data-i18n="citizen.form.houseType">House Type *</span>
+                            </label>
+                            <select id="houseType" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-teal-500">
+                                <option value="" data-i18n="citizen.form.houseType.placeholder">Select house type</option>
+                                <option value="Apartment" data-i18n="citizen.form.houseType.apartment">Apartment</option>
+                                <option value="Independent House" data-i18n="citizen.form.houseType.independent">Independent House</option>
+                                <option value="Villa" data-i18n="citizen.form.houseType.villa">Villa</option>
+                                <option value="Townhouse" data-i18n="citizen.form.houseType.townhouse">Townhouse</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Daily Waste Generation -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-4 text-gray-700">
+                            <i class="fas fa-trash text-teal-600 mr-2"></i><span data-i18n="citizen.form.dailyLabel">Daily Waste Generation (kg)</span>
+                        </label>
+                        <p class="text-sm text-gray-600 mb-4" data-i18n="citizen.form.dailyDesc">Enter your daily waste generation by type</p>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-600 mb-2">
+                                    <i class="fas fa-water text-blue-500 mr-2"></i><span data-i18n="citizen.form.wet">Wet Waste *</span>
+                                </label>
+                                <input type="number" id="wetWaste" placeholder="0.0" min="0" step="0.1" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" />
+                                <p class="text-xs text-gray-500 mt-1" data-i18n="citizen.form.wetHint">Food scraps, peels</p>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-600 mb-2">
+                                    <i class="fas fa-scroll text-yellow-600 mr-2"></i><span data-i18n="citizen.form.dry">Dry Waste *</span>
+                                </label>
+                                <input type="number" id="dryWaste" placeholder="0.0" min="0" step="0.1" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" />
+                                <p class="text-xs text-gray-500 mt-1" data-i18n="citizen.form.dryHint">Paper, cardboard</p>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-600 mb-2">
+                                    <i class="fas fa-cube text-red-600 mr-2"></i><span data-i18n="citizen.form.plastic">Plastic Waste *</span>
+                                </label>
+                                <input type="number" id="plasticWaste" placeholder="0.0" min="0" step="0.1" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" />
+                                <p class="text-xs text-gray-500 mt-1" data-i18n="citizen.form.plasticHint">Bottles, bags</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold py-3 rounded-lg hover:shadow-lg transition" data-i18n="citizen.form.submit">
+                        <i class="fas fa-chart-pie mr-2"></i>Analyze My Waste
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results" class="mt-12 hidden">
+                <div class="result-card bg-gradient-to-r from-teal-50 to-teal-100 rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold mb-8 text-teal-800" data-i18n="citizen.results.title">Your Waste Analysis Report</h2>
+
+                    <!-- Personal Info Card -->
+                    <div class="bg-teal-600 text-white rounded-lg p-6 mb-8">
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <p class="text-teal-100 text-sm" data-i18n="citizen.results.name">Name</p>
+                                <p class="text-xl font-semibold" id="displayName"></p>
+                            </div>
+                            <div>
+                                <p class="text-teal-100 text-sm" data-i18n="citizen.results.city">City</p>
+                                <p class="text-xl font-semibold" id="displayCity"></p>
+                            </div>
+                            <div>
+                                <p class="text-teal-100 text-sm" data-i18n="citizen.results.family">Family Size</p>
+                                <p class="text-xl font-semibold" id="displayFamilySize"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Waste Statistics -->
+                    <div class="grid md:grid-cols-4 gap-6 mb-12">
+                        <div class="bg-white rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-800" data-i18n="citizen.results.daily">Daily Total</h3>
+                                <i class="fas fa-calendar-day text-4xl text-teal-300"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-teal-600" id="dailyTotal">0</p>
+                            <p class="text-xs text-gray-500" data-i18n="citizen.results.kgDay">kg/day</p>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-800" data-i18n="citizen.results.monthly">Monthly Total</h3>
+                                <i class="fas fa-calendar text-4xl text-teal-300"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-teal-600" id="monthlyTotal">0</p>
+                            <p class="text-xs text-gray-500" data-i18n="citizen.results.kgMonth">kg/month</p>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-800" data-i18n="citizen.results.yearly">Yearly Total</h3>
+                                <i class="fas fa-chart-line text-4xl text-teal-300"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-teal-600" id="yearlyTotal">0</p>
+                            <p class="text-xs text-gray-500" data-i18n="citizen.results.kgYear">kg/year</p>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-800" data-i18n="citizen.results.perPerson">Per Person/Day</h3>
+                                <i class="fas fa-user-circle text-4xl text-teal-300"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-teal-600" id="perPerson">0</p>
+                            <p class="text-xs text-gray-500" data-i18n="citizen.results.kgPerPerson">kg/person/day</p>
+                        </div>
+                    </div>
+
+                    <!-- Waste Breakdown -->
+                    <div class="bg-white rounded-lg p-8 mb-8">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800" data-i18n="citizen.breakdown.title">Your Waste Breakdown</h3>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="text-center">
+                                <div class="mb-4">
+                                    <i class="fas fa-water text-5xl text-blue-500"></i>
+                                </div>
+                                <h4 class="font-semibold mb-2" data-i18n="citizen.breakdown.wet">Wet Waste</h4>
+                                <p class="text-3xl font-bold text-blue-600" id="displayWet">0</p>
+                                <p class="text-xs text-gray-500" data-i18n="citizen.results.kgDay">kg/day</p>
+                                <p class="text-xs text-gray-600 mt-2" id="wetPercent">0%</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="mb-4">
+                                    <i class="fas fa-scroll text-5xl text-yellow-600"></i>
+                                </div>
+                                <h4 class="font-semibold mb-2" data-i18n="citizen.breakdown.dry">Dry Waste</h4>
+                                <p class="text-3xl font-bold text-yellow-600" id="displayDry">0</p>
+                                <p class="text-xs text-gray-500" data-i18n="citizen.results.kgDay">kg/day</p>
+                                <p class="text-xs text-gray-600 mt-2" id="dryPercent">0%</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="mb-4">
+                                    <i class="fas fa-cube text-5xl text-red-600"></i>
+                                </div>
+                                <h4 class="font-semibold mb-2" data-i18n="citizen.breakdown.plastic">Plastic Waste</h4>
+                                <p class="text-3xl font-bold text-red-600" id="displayPlastic">0</p>
+                                <p class="text-xs text-gray-500" data-i18n="citizen.results.kgDay">kg/day</p>
+                                <p class="text-xs text-gray-600 mt-2" id="plasticPercent">0%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="bg-white rounded-lg p-8">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800" data-i18n="citizen.recommend.title">Ways to Reduce Your Waste</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- Waste Segregation -->
+                            <div class="border-l-4 border-green-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-green-700">
+                                    <i class="fas fa-sort mr-2"></i><span data-i18n="citizen.recommend.segregation.title">Proper Waste Segregation</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="citizen.recommend.segregation.desc">Separate your waste into categories for proper disposal and recycling.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.segregation.li1">Use separate bins for wet waste, dry waste, and plastic</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.segregation.li2">Follow your city's waste management guidelines</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.segregation.li3">Reduces environmental impact by up to 50%</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Wet Waste -->
+                            <div class="border-l-4 border-blue-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-blue-700">
+                                    <i class="fas fa-leaf mr-2"></i><span data-i18n="citizen.recommend.compost.title">Composting Wet Waste</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="citizen.recommend.compost.desc">Convert food scraps into nutrient-rich compost for your garden.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.compost.li1">Start a small home composting bin</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.compost.li2">Use compost for plants and gardens</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.compost.li3">Reduces landfill waste by 30-40%</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Dry Waste -->
+                            <div class="border-l-4 border-yellow-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-yellow-700">
+                                    <i class="fas fa-recycle mr-2"></i><span data-i18n="citizen.recommend.recycle.title">Recycling Dry Waste</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="citizen.recommend.recycle.desc">Recycle paper, cardboard, and other dry materials.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.recycle.li1">Collect dry waste for recycling centers</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.recycle.li2">Get paid for recyclable materials</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.recycle.li3">Supports circular economy initiatives</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Plastic Reduction -->
+                            <div class="border-l-4 border-red-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-red-700">
+                                    <i class="fas fa-ban mr-2"></i><span data-i18n="citizen.recommend.plastic.title">Reduce Plastic Usage</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="citizen.recommend.plastic.desc">Minimize plastic consumption and switch to sustainable alternatives.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.plastic.li1">Use reusable bags, bottles, and containers</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.plastic.li2">Buy products with minimal plastic packaging</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.plastic.li3">Target: 50% reduction in plastic waste</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Smart Shopping -->
+                            <div class="border-l-4 border-purple-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-purple-700">
+                                    <i class="fas fa-shopping-cart mr-2"></i><span data-i18n="citizen.recommend.shopping.title">Smart Shopping Habits</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="citizen.recommend.shopping.desc">Make conscious choices while shopping to reduce waste.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.shopping.li1">Buy in bulk to reduce packaging waste</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.shopping.li2">Choose products with eco-friendly packaging</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.shopping.li3">Avoid single-use items</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Community -->
+                            <div class="border-l-4 border-teal-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-teal-700">
+                                    <i class="fas fa-users mr-2"></i><span data-i18n="citizen.recommend.community.title">Community Initiatives</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="citizen.recommend.community.desc">Join community waste management programs.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.community.li1">Participate in local cleanup drives</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.community.li2">Share waste reduction tips with neighbors</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="citizen.recommend.community.li3">Support community composting programs</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Eco Tips -->
+                    <div class="mt-8 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg p-8">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800" data-i18n="citizen.tips.title">Quick Eco Tips</h3>
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-lightbulb text-yellow-500 text-xl mt-1"></i>
+                                <p class="text-gray-600" data-i18n="citizen.tips.tip1">Plan meals to reduce food waste and save money</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-lightbulb text-yellow-500 text-xl mt-1"></i>
+                                <p class="text-gray-600" data-i18n="citizen.tips.tip2">Reuse containers for storage instead of buying new ones</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-lightbulb text-yellow-500 text-xl mt-1"></i>
+                                <p class="text-gray-600" data-i18n="citizen.tips.tip3">Donate used items instead of throwing them away</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-lightbulb text-yellow-500 text-xl mt-1"></i>
+                                <p class="text-gray-600" data-i18n="citizen.tips.tip4">Use digital alternatives to reduce paper consumption</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p data-i18n="citizen.footer" data-i18n-type="html">&copy; 2025 WasteWise. All rights reserved. | Making homes waste-smart</p>
+        </div>
+    </footer>
+
+    <script src="js/citizen.js"></script>
+    <script src="js/translations.js"></script>
+</body>
+</html>

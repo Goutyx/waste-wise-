@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Module - WasteWise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-orange {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        }
+        .result-card {
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <script>
+        const savedLang = localStorage.getItem('language') || 'en';
+        document.documentElement.lang = savedLang;
+    </script>
+</head>
+<body class="font-sans text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <a href="index.html?showSplash=true" class="flex items-center gap-2">
+                        <i class="fas fa-leaf text-green-600 text-2xl"></i>
+                        <span class="text-2xl font-bold text-green-600">WasteWise</span>
+                    </a>
+                </div>
+                <div class="flex gap-4 items-center">
+                    <a href="index.html" class="text-gray-600 hover:text-green-600 transition font-semibold" data-i18n="nav.back">Back to Home</a>
+                    <button id="langToggle" class="flex items-center text-gray-600 hover:text-green-600 transition font-semibold border border-gray-300 rounded px-3 py-1 hover:border-green-600">
+                        <i class="fas fa-language mr-1"></i> HI
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-orange text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <i class="fas fa-tractor text-6xl mb-4"></i>
+            <h1 class="text-4xl font-bold mb-4" data-i18n="farmer.hero.title">Farmer Module</h1>
+            <p class="text-xl" data-i18n="farmer.hero.subtitle">Manage Agricultural Waste Efficiently</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-8 text-gray-800" data-i18n="farmer.form.title">Agricultural Waste Assessment</h2>
+                
+                <form id="farmerForm" class="space-y-6">
+                    <!-- Full Name -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-user text-orange-600 mr-2"></i><span data-i18n="farmer.form.nameLabel">Full Name *</span>
+                            </label>
+                            <input type="text" id="fullName" placeholder="Enter your name" data-i18n="farmer.form.namePlaceholder" data-i18n-attr="placeholder" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" />
+                        </div>
+
+                        <!-- Location -->
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-map-marker-alt text-orange-600 mr-2"></i><span data-i18n="farmer.form.locationLabel">Location *</span>
+                            </label>
+                            <input type="text" id="location" placeholder="City, State" data-i18n="farmer.form.locationPlaceholder" data-i18n-attr="placeholder" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" />
+                        </div>
+                    </div>
+
+                    <!-- Contact Number -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-phone text-orange-600 mr-2"></i><span data-i18n="farmer.form.contactLabel">Contact Number *</span>
+                            </label>
+                            <input type="tel" id="contactNumber" placeholder="+1 (555) 000-0000" data-i18n="farmer.form.contactPlaceholder" data-i18n-attr="placeholder" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" />
+                        </div>
+
+                        <!-- Type of Farming -->
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-leaf text-orange-600 mr-2"></i><span data-i18n="farmer.form.farmingTypeLabel">Type of Farming *</span>
+                            </label>
+                            <select id="farmingType" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500">
+                                <option value="" data-i18n="farmer.form.farmingTypePlaceholder">Select farming type</option>
+                                <option value="Crop Farming" data-i18n="farmer.form.optionCrop">Crop Farming</option>
+                                <option value="Livestock Farming" data-i18n="farmer.form.optionLivestock">Livestock Farming</option>
+                                <option value="Mixed Farming" data-i18n="farmer.form.optionMixed">Mixed Farming</option>
+                                <option value="Dairy Farming" data-i18n="farmer.form.optionDairy">Dairy Farming</option>
+                                <option value="Poultry Farming" data-i18n="farmer.form.optionPoultry">Poultry Farming</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Farm Area -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-square text-orange-600 mr-2"></i><span data-i18n="farmer.form.farmAreaLabel">Farm Area (acres) *</span>
+                            </label>
+                            <input type="number" id="farmArea" placeholder="Enter farm area" data-i18n="farmer.form.farmAreaPlaceholder" data-i18n-attr="placeholder" min="0" step="0.1" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" />
+                        </div>
+
+                        <!-- Crop Residue -->
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-wheat-awn text-orange-600 mr-2"></i><span data-i18n="farmer.form.cropResidueLabel">Crop Residue (kg/day) *</span>
+                            </label>
+                            <input type="number" id="cropResidue" placeholder="Enter daily crop residue" data-i18n="farmer.form.cropResiduePlaceholder" data-i18n-attr="placeholder" min="0" step="0.1" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" />
+                        </div>
+                    </div>
+
+                    <!-- Animal Waste -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-700">
+                            <i class="fas fa-cow text-orange-600 mr-2"></i><span data-i18n="farmer.form.animalWasteLabel">Animal Waste (kg/day) *</span>
+                        </label>
+                        <input type="number" id="animalWaste" placeholder="Enter daily animal waste" data-i18n="farmer.form.animalWastePlaceholder" data-i18n-attr="placeholder" min="0" step="0.1" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-orange-500" />
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 rounded-lg hover:shadow-lg transition">
+                        <i class="fas fa-calculator mr-2"></i><span data-i18n="farmer.form.submit">Calculate Waste &amp; Get Suggestions</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results" class="mt-12 hidden">
+                <div class="result-card bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold mb-8 text-orange-800" data-i18n="farmer.results.title">Your Waste Assessment Results</h2>
+
+                    <!-- Stats Grid -->
+                    <div class="grid md:grid-cols-3 gap-6 mb-12">
+                        <div class="bg-white rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-600 text-sm" data-i18n="farmer.results.dailyLabel">Daily Waste</p>
+                                    <p class="text-3xl font-bold text-orange-600" id="dailyWaste">0</p>
+                                    <p class="text-xs text-gray-500" data-i18n="farmer.results.dailyUnit">kg/day</p>
+                                </div>
+                                <i class="fas fa-trash text-4xl text-orange-300"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-600 text-sm" data-i18n="farmer.results.monthlyLabel">Monthly Waste</p>
+                                    <p class="text-3xl font-bold text-orange-600" id="monthlyWaste">0</p>
+                                    <p class="text-xs text-gray-500" data-i18n="farmer.results.monthlyUnit">kg/month</p>
+                                </div>
+                                <i class="fas fa-calendar text-4xl text-orange-300"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-gray-600 text-sm" data-i18n="farmer.results.yearlyLabel">Yearly Waste</p>
+                                    <p class="text-3xl font-bold text-orange-600" id="yearlyWaste">0</p>
+                                    <p class="text-xs text-gray-500" data-i18n="farmer.results.yearlyUnit">kg/year</p>
+                                </div>
+                                <i class="fas fa-chart-line text-4xl text-orange-300"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="bg-white rounded-lg p-8">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800" data-i18n="farmer.recommendations.title">Recommendations to Reduce Waste</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- Composting -->
+                            <div class="border-l-4 border-green-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-green-700">
+                                    <i class="fas fa-leaf mr-2"></i><span data-i18n="farmer.recommendations.composting.title">Composting Program</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="farmer.recommendations.composting.description">Convert your crop residue and animal waste into nutrient-rich compost.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.composting.tip1">Create compost pits for organic waste decomposition</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.composting.tip2">Use compost to improve soil health and reduce fertilizer costs</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.composting.tip3">Estimated benefit: 40-50% reduction in chemical fertilizer use</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Biogas -->
+                            <div class="border-l-4 border-blue-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-blue-700">
+                                    <i class="fas fa-fire mr-2"></i><span data-i18n="farmer.recommendations.biogas.title">Biogas Generation</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="farmer.recommendations.biogas.description">Use animal waste to generate biogas for cooking and electricity.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.biogas.tip1">Install biogas digesters for waste conversion</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.biogas.tip2">Generate clean energy while managing waste</span></li>
+                                    <li id="biogasOutput"></li>
+                                </ul>
+                            </div>
+
+                            <!-- Crop Rotation -->
+                            <div class="border-l-4 border-yellow-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-yellow-700">
+                                    <i class="fas fa-sync mr-2"></i><span data-i18n="farmer.recommendations.cropRotation.title">Crop Rotation &amp; Mulching</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="farmer.recommendations.cropRotation.description">Manage crop residue effectively through rotation and mulching practices.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.cropRotation.tip1">Use crop residue as mulch to retain soil moisture</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.cropRotation.tip2">Practice crop rotation to reduce pest buildup</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.cropRotation.tip3">Reduces need for chemical pesticides by 30%</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Vermiculture -->
+                            <div class="border-l-4 border-purple-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-purple-700">
+                                    <i class="fas fa-worm mr-2"></i><span data-i18n="farmer.recommendations.vermiculture.title">Vermiculture</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="farmer.recommendations.vermiculture.description">Use earthworms to convert organic waste into vermicompost.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.vermiculture.tip1">Faster decomposition compared to traditional composting</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.vermiculture.tip2">High-quality fertilizer for organic farming</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.vermiculture.tip3">Additional income source by selling vermicompost</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Sustainable Practices -->
+                            <div class="border-l-4 border-teal-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-teal-700">
+                                    <i class="fas fa-earth-americas mr-2"></i><span data-i18n="farmer.recommendations.sustainable.title">Sustainable Practices</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="farmer.recommendations.sustainable.description">Adopt eco-friendly farming methods to minimize waste generation.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.sustainable.tip1">Reduce burning of crop residue to minimize air pollution</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.sustainable.tip2">Use drip irrigation to conserve water</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="farmer.recommendations.sustainable.tip3">Adopt precision farming techniques</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Information Display -->
+                    <div class="mt-8 bg-orange-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-800" data-i18n="farmer.userInfo.title">Your Information</h3>
+                        <div class="grid md:grid-cols-2 gap-6 text-sm">
+                            <div>
+                                <p class="text-gray-600"><span data-i18n="farmer.userInfo.nameLabel">Name:</span> <span class="font-semibold text-gray-800" id="displayName"></span></p>
+                                <p class="text-gray-600"><span data-i18n="farmer.userInfo.locationLabel">Location:</span> <span class="font-semibold text-gray-800" id="displayLocation"></span></p>
+                                <p class="text-gray-600"><span data-i18n="farmer.userInfo.contactLabel">Contact:</span> <span class="font-semibold text-gray-800" id="displayContact"></span></p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600"><span data-i18n="farmer.userInfo.farmTypeLabel">Farm Type:</span> <span class="font-semibold text-gray-800" id="displayFarmType"></span></p>
+                                <p class="text-gray-600">
+                                    <span data-i18n="farmer.userInfo.farmAreaLabel">Farm Area:</span>
+                                    <span class="font-semibold text-gray-800" id="displayFarmArea"></span>
+                                    <span data-i18n="farmer.userInfo.farmAreaUnit">acres</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p data-i18n="farmer.footer" data-i18n-type="html">&copy; 2025 WasteWise. All rights reserved. | Designed for sustainable farming</p>
+        </div>
+    </footer>
+
+    <script src="js/farmer.js"></script>
+    <script src="js/translations.js"></script>
+</body>
+</html>

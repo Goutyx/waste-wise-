@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - WasteWise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #0f766e 100%);
+        }
+    </style>
+    <script>
+        const savedLang = localStorage.getItem('language') || 'en';
+        document.documentElement.lang = savedLang;
+    </script>
+</head>
+<body class="font-sans text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <a href="index.html?showSplash=true" class="flex items-center gap-2">
+                        <i class="fas fa-leaf text-green-600 text-2xl"></i>
+                        <span class="text-2xl font-bold text-green-600">WasteWise</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex gap-8 items-center">
+                    <a href="index.html" class="text-gray-600 hover:text-green-600 transition font-semibold" data-i18n="nav.home">Home</a>
+                    <a href="about.html" class="text-gray-600 hover:text-green-600 transition font-semibold" data-i18n="nav.about">About</a>
+                    <a href="index.html#modules" class="text-gray-600 hover:text-green-600 transition font-semibold" data-i18n="nav.modules">Modules</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-green-600 transition font-semibold text-green-600" data-i18n="nav.contact">Contact</a>
+                    <button id="langToggle" class="flex items-center text-gray-600 hover:text-green-600 transition font-semibold border border-gray-300 rounded px-3 py-1 hover:border-green-600">
+                        <i class="fas fa-language mr-1"></i> HI
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <i class="fas fa-envelope text-6xl mb-4"></i>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6" data-i18n="contact.hero.title">Get in Touch</h1>
+            <p class="text-xl md:text-2xl" data-i18n="contact.hero.subtitle">We'd love to hear from you! Share your feedback or ask questions.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h2 class="text-2xl font-bold mb-6" data-i18n="contact.form.title">Send us a Message</h2>
+                    <form id="contactForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-user text-green-600 mr-2"></i><span data-i18n="contact.form.name">Your Name *</span>
+                            </label>
+                            <input type="text" id="name" placeholder="John Doe" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-600" data-i18n="contact.form.placeholder.name" data-i18n-attr="placeholder" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-envelope text-green-600 mr-2"></i><span data-i18n="contact.form.email">Email Address *</span>
+                            </label>
+                            <input type="email" id="email" placeholder="john@example.com" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-600" data-i18n="contact.form.placeholder.email" data-i18n-attr="placeholder" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-phone text-green-600 mr-2"></i><span data-i18n="contact.form.phone">Phone Number</span>
+                            </label>
+                            <input type="tel" id="phone" placeholder="+91 xxxxxxxxxx" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-600" data-i18n="contact.form.placeholder.phone" data-i18n-attr="placeholder" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-tag text-green-600 mr-2"></i><span data-i18n="contact.form.subject">Subject *</span>
+                            </label>
+                            <select id="subject" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-600">
+                                <option value="" data-i18n="contact.form.subject.placeholder">Select a subject</option>
+                                <option value="General Inquiry" data-i18n="contact.form.subject.general">General Inquiry</option>
+                                <option value="Technical Support" data-i18n="contact.form.subject.support">Technical Support</option>
+                                <option value="Partnership" data-i18n="contact.form.subject.partnership">Partnership</option>
+                                <option value="Feedback" data-i18n="contact.form.subject.feedback">Feedback</option>
+                                <option value="Bug Report" data-i18n="contact.form.subject.bug">Bug Report</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-message text-green-600 mr-2"></i><span data-i18n="contact.form.message">Your Message *</span>
+                            </label>
+                            <textarea id="message" placeholder="Type your message here..." rows="5" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-600" data-i18n="contact.form.placeholder.message" data-i18n-attr="placeholder"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold py-3 rounded-lg hover:shadow-lg transition" data-i18n="contact.form.submit">
+                            <i class="fas fa-paper-plane mr-2"></i>Send Message
+                        </button>
+                        <p id="successMessage" class="hidden text-green-600 text-sm mt-4 text-center font-semibold" data-i18n="contact.form.success">
+                            <i class="fas fa-check-circle mr-2"></i>Thank you! Your message has been sent successfully.
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="space-y-8">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-8" data-i18n="contact.info.title">Contact Information</h2>
+                    </div>
+
+                    <div class="bg-green-50 p-8 rounded-lg">
+                        <div class="flex gap-4">
+                            <i class="fas fa-map-marker-alt text-3xl text-green-600 flex-shrink-0"></i>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2" data-i18n="contact.info.address.title">Address</h3>
+                                <p class="text-gray-700" data-i18n="contact.info.address.desc" data-i18n-type="html">123 Green Street<br>Electronic City, EC 12345<br> Bangalore </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-8 rounded-lg">
+                        <div class="flex gap-4">
+                            <i class="fas fa-phone text-3xl text-blue-600 flex-shrink-0"></i>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2" data-i18n="contact.info.phone.title">Phone</h3>
+                                <p class="text-gray-700">+91 98712 34567</p>
+                                <p class="text-gray-600 text-sm mt-1" data-i18n="contact.info.phone.hours">Mon-Fri: 9AM - 6PM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 p-8 rounded-lg">
+                        <div class="flex gap-4">
+                            <i class="fas fa-envelope text-3xl text-purple-600 flex-shrink-0"></i>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2" data-i18n="contact.info.email.title">Email</h3>
+                                <p class="text-gray-700">info@wastewise.com</p>
+                                <p class="text-gray-700">support@wastewise.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-orange-50 p-8 rounded-lg">
+                        <div class="flex gap-4">
+                            <i class="fas fa-clock text-3xl text-orange-600 flex-shrink-0"></i>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2" data-i18n="contact.info.hours.title">Business Hours</h3>
+                                <p class="text-gray-700" data-i18n="contact.info.hours.weekday">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                <p class="text-gray-700" data-i18n="contact.info.hours.saturday">Saturday: 10:00 AM - 4:00 PM</p>
+                                <p class="text-gray-700" data-i18n="contact.info.hours.sunday">Sunday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-lg border-2 border-green-200">
+                        <h3 class="font-semibold text-lg mb-4" data-i18n="contact.info.follow.title">Follow Us</h3>
+                        <p class="text-gray-600 text-sm mb-4" data-i18n="contact.info.follow.desc">Stay updated with our latest news, tips, and waste management insights!</p>
+                        <div class="flex gap-4">
+                            <a href="https://www.facebook.com/" class="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-700 transition" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="https://www.twitter.com/" class="bg-blue-400 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-500 transition" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://www.instagram.com/" class="bg-pink-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-pink-700 transition" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/" class="bg-blue-700 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-800 transition" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://www.whatsapp.com/" class="bg-green-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-green-700 transition" title="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="mt-16">
+                <h2 class="text-3xl font-bold mb-8 text-center" data-i18n="contact.faq.title">Frequently Asked Questions</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-lg mb-3 text-gray-800">
+                            <i class="fas fa-question-circle text-green-600 mr-2"></i><span data-i18n="contact.faq.q1">How do I get started?</span>
+                        </h3>
+                        <p class="text-gray-600" data-i18n="contact.faq.a1">Simply visit our homepage, select your category (Farmer, Industrialist, or Citizen), and fill out the waste assessment form. You'll receive personalized recommendations immediately!</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-lg mb-3 text-gray-800">
+                            <i class="fas fa-question-circle text-green-600 mr-2"></i><span data-i18n="contact.faq.q2">Is my data private?</span>
+                        </h3>
+                        <p class="text-gray-600" data-i18n="contact.faq.a2">Yes, all data is processed locally in your browser. We don't store any of your personal information on our servers.</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-lg mb-3 text-gray-800">
+                            <i class="fas fa-question-circle text-green-600 mr-2"></i><span data-i18n="contact.faq.q3">Can I use WasteWise on mobile?</span>
+                        </h3>
+                        <p class="text-gray-600" data-i18n="contact.faq.a3">Absolutely! WasteWise is fully responsive and works on all devices including smartphones, tablets, and desktops.</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-lg mb-3 text-gray-800">
+                            <i class="fas fa-question-circle text-green-600 mr-2"></i><span data-i18n="contact.faq.q4">What should I do with my waste?</span>
+                        </h3>
+                        <p class="text-gray-600" data-i18n="contact.faq.a4">Our platform provides specific recommendations based on your waste type. Follow the suggestions in the results page for each module.</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-lg mb-3 text-gray-800">
+                            <i class="fas fa-question-circle text-green-600 mr-2"></i><span data-i18n="contact.faq.q5">Do you charge for using WasteWise?</span>
+                        </h3>
+                        <p class="text-gray-600" data-i18n="contact.faq.a5">No! WasteWise is completely free to use. We believe waste management should be accessible to everyone.</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-lg mb-3 text-gray-800">
+                            <i class="fas fa-question-circle text-green-600 mr-2"></i><span data-i18n="contact.faq.q6">Can businesses use WasteWise?</span>
+                        </h3>
+                        <p class="text-gray-600" data-i18n="contact.faq.a6">Yes! Our Industrialist module is specifically designed for businesses and factories to track and optimize their waste management.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-leaf text-green-400 text-2xl"></i>
+                        <span class="text-xl font-bold">WasteWise</span>
+                    </div>
+                    <p class="text-gray-400" data-i18n="footer.tagline">Empowering sustainable waste management for a cleaner tomorrow.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4" data-i18n="footer.quicklinks">Quick Links</h4>
+                    <ul class="text-gray-400 space-y-2">
+                        <li><a href="index.html" class="hover:text-white transition" data-i18n="nav.home">Home</a></li>
+                        <li><a href="about.html" class="hover:text-white transition" data-i18n="nav.about">About</a></li>
+                        <li><a href="index.html#modules" class="hover:text-white transition" data-i18n="nav.modules">Modules</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition" data-i18n="nav.contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4" data-i18n="footer.modules">Modules</h4>
+                    <ul class="text-gray-400 space-y-2">
+                        <li><a href="farmer.html" class="hover:text-white transition" data-i18n="module.farmer">Farmer</a></li>
+                        <li><a href="industrialist.html" class="hover:text-white transition" data-i18n="module.industrialist">Industrialist</a></li>
+                        <li><a href="citizen.html" class="hover:text-white transition" data-i18n="module.citizen">Citizen</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4" data-i18n="footer.contact">Contact Info</h4>
+                    <ul class="text-gray-400 space-y-2">
+                        <li><i class="fas fa-envelope mr-2"></i>info@wastewise.com</li>
+                        <li><i class="fas fa-phone mr-2"></i>+91 89753 46789</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Electronic City, Bangalore</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p data-i18n="footer.rights" data-i18n-type="html">&copy; 2025 WasteWise. All rights reserved. | Designed with <i class="fas fa-heart text-red-500"></i> for a sustainable future</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/contact.js"></script>
+    <script src="js/translations.js"></script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WasteWise - Waste Management Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+        }
+        .btn-orange {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        }
+        .btn-blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .btn-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .module-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.15);
+        }
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .splash-content {
+            text-align: center;
+            color: white;
+        }
+        .splash-logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 0.6s ease-in-out;
+        }
+        .splash-text {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .splash-tagline {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800">
+    <!-- Splash Screen -->
+    <div id="splashScreen">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="splash-text" data-i18n="splash.title">WasteWise</div>
+            <div class="splash-tagline" data-i18n="splash.tagline">Turn Waste into Worth</div>
+        </div>
+    </div>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html?showSplash=true" class="flex items-center gap-2">
+                    <i class="fas fa-leaf text-green-600 text-2xl"></i>
+                    <span class="text-2xl font-bold text-green-600">WasteWise</span>
+                </a>
+                <div class="hidden md:flex gap-8 items-center">
+                    <a href="index.html" class="text-gray-600 hover:text-green-600 transition font-semibold" data-i18n="nav.home">Home</a>
+                    <a href="about.html" class="text-gray-600 hover:text-green-600 transition font-semibold" data-i18n="nav.about">About</a>
+                    <a href="#modules" class="text-gray-600 hover:text-green-600 transition font-semibold" data-i18n="nav.modules">Modules</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-green-600 transition font-semibold" data-i18n="nav.contact">Contact</a>
+                    <a href="login.html" class="text-gray-600 hover:text-green-600 transition font-semibold">Logout</a>
+                    <button id="langToggle" class="flex items-center gap-1 text-gray-600 hover:text-green-600 transition font-semibold border border-gray-300 rounded px-3 py-1 hover:border-green-600">
+                        <i class="fas fa-language"></i>
+                        HI
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient text-white py-20 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6" data-i18n="hero.title">Turn Waste into Worth</h1>
+            <p class="text-xl md:text-2xl mb-4" data-i18n="hero.subtitle">Manage, Measure & Minimize!</p>
+            <p class="text-lg mb-8 text-green-50" data-i18n="hero.desc">Empowering farmers, industries, and citizens to manage waste efficiently and sustainably</p>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <button onclick="document.getElementById('modules').scrollIntoView({behavior: 'smooth'})" class="bg-white text-green-600 px-8 py-3 rounded-full font-semibold hover:bg-green-50 transition" data-i18n="hero.explore">Explore</button>
+                <button onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-green-600 transition" data-i18n="hero.learn">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-4" data-i18n="welcome.title">Welcome to WasteWise</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-16" data-i18n="welcome.desc">
+                Our platform provides tailored waste management solutions for different sectors of society. Whether you're a farmer dealing with agricultural waste, an industrialist managing production waste, or a citizen looking to reduce household waste, we have the tools you need.
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg text-center">
+                    <div class="text-5xl mb-4"><i class="fas fa-seedling text-green-600"></i></div>
+                    <h3 class="text-xl font-semibold mb-3" data-i18n="welcome.sustainable">Sustainable</h3>
+                    <p class="text-gray-600" data-i18n="welcome.sustainable.desc">Promote eco-friendly waste management practices</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg text-center">
+                    <div class="text-5xl mb-4"><i class="fas fa-chart-line text-blue-600"></i></div>
+                    <h3 class="text-xl font-semibold mb-3" data-i18n="welcome.data">Data-Driven</h3>
+                    <p class="text-gray-600" data-i18n="welcome.data.desc">Track and analyze waste generation patterns</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg text-center">
+                    <div class="text-5xl mb-4"><i class="fas fa-users text-teal-600"></i></div>
+                    <h3 class="text-xl font-semibold mb-3" data-i18n="welcome.community">Community</h3>
+                    <p class="text-gray-600" data-i18n="welcome.community.desc">Connect and share best practices</p>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+
+
+
+    <!-- Modules Section -->
+    <section id="modules" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12" data-i18n="modules.title">Choose Your Module</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Farmer Module -->
+                <div class="module-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="btn-orange text-white p-8 text-center">
+                        <i class="fas fa-tractor text-5xl"></i>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-orange-600 mb-4" data-i18n="module.farmer">Farmer</h3>
+                        <p class="text-gray-600 mb-6" data-i18n="module.farmer.desc">Manage agricultural waste including crop residue and animal waste. Get suggestions for composting and biogas generation.</p>
+                        <ul class="space-y-2 mb-6 text-gray-600">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.farmer.li1">Crop residue management</span></li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.farmer.li2">Animal waste tracking</span></li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.farmer.li3">Composting suggestions</span></li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.farmer.li4">Biogas potential</span></li>
+                        </ul>
+                        <button onclick="window.location.href='farmer.html'" class="btn-orange w-full text-white py-3 rounded-lg font-semibold hover:shadow-md transition" data-i18n="module.access">Access</button>
+                    </div>
+                </div>
+
+                <!-- Industrialist Module -->
+                <div class="module-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="btn-blue text-white p-8 text-center">
+                        <i class="fas fa-industry text-5xl"></i>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4" data-i18n="module.industrialist">Industrialist</h3>
+                        <p class="text-gray-600 mb-6" data-i18n="module.industrialist.desc">Track industrial waste production, analyze patterns, and get insights on waste reduction strategies.</p>
+                        <ul class="space-y-2 mb-6 text-gray-600">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.industrialist.li1">Production waste tracking</span></li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.industrialist.li2">Visual analytics</span></li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.industrialist.li3">Monthly reports</span></li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.industrialist.li4">Cost analysis</span></li>
+                        </ul>
+                        <button onclick="window.location.href='industrialist.html'" class="btn-blue w-full text-white py-3 rounded-lg font-semibold hover:shadow-md transition" data-i18n="module.access">Access</button>
+                    </div>
+                </div>
+
+                <!-- Citizen Module -->
+                <div class="module-card bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="btn-green text-white p-8 text-center">
+                        <i class="fas fa-home text-5xl"></i>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold text-green-600 mb-4" data-i18n="module.citizen">Citizen</h3>
+                        <p class="text-gray-600 mb-6" data-i18n="module.citizen.desc">Monitor household waste generation, learn segregation practices, and reduce your environmental footprint.</p>
+                        <ul class="space-y-2 mb-6 text-gray-600">
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.citizen.li1">Household waste tracking</span></li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.citizen.li2">Waste segregation tips</span></li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.citizen.li3">Visual reports</span></li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> <span data-i18n="module.citizen.li4">Eco-friendly suggestions</span></li>
+                        </ul>
+                        <button onclick="window.location.href='citizen.html'" class="btn-green w-full text-white py-3 rounded-lg font-semibold hover:shadow-md transition" data-i18n="module.access">Access</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-leaf text-green-400 text-2xl"></i>
+                        <span class="text-xl font-bold">WasteWise</span>
+                    </div>
+                    <p class="text-gray-400" data-i18n="footer.tagline">Empowering sustainable waste management for a cleaner tomorrow.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4" data-i18n="footer.quicklinks">Quick Links</h4>
+                    <ul class="text-gray-400 space-y-2">
+                        <li><a href="index.html" class="hover:text-white transition" data-i18n="nav.home">Home</a></li>
+                        <li><a href="about.html" class="hover:text-white transition" data-i18n="nav.about">About</a></li>
+                        <li><a href="#modules" class="hover:text-white transition" data-i18n="nav.modules">Modules</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition" data-i18n="nav.contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4" data-i18n="footer.modules">Modules</h4>
+                    <ul class="text-gray-400 space-y-2">
+                        <li><a href="farmer.html" class="hover:text-white transition" data-i18n="module.farmer">Farmer</a></li>
+                        <li><a href="industrialist.html" class="hover:text-white transition" data-i18n="module.industrialist">Industrialist</a></li>
+                        <li><a href="citizen.html" class="hover:text-white transition" data-i18n="module.citizen">Citizen</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4" data-i18n="footer.contact">Contact Info</h4>
+                    <ul class="text-gray-400 space-y-2">
+                        <li><i class="fas fa-envelope mr-2"></i>info@wastewise.com</li>
+                        <li><i class="fas fa-phone mr-2"></i>+91 87468 96556</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Electronic City, Bangalore</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p data-i18n="footer.rights" data-i18n-type="html">&copy; 2025 WasteWise. All rights reserved. | Designed with <i class="fas fa-heart text-red-500"></i> for a sustainable future</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/splash.js"></script>
+    <script src="js/translations.js"></script>
+</body>
+</html>

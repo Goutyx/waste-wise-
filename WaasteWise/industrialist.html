@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrialist Module - WasteWise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .result-card {
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .chart-bar {
+            height: 200px;
+            background: linear-gradient(to top, #3b82f6, #60a5fa);
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+    </style>
+    <script>
+        const savedLang = localStorage.getItem('language') || 'en';
+        document.documentElement.lang = savedLang;
+    </script>
+</head>
+<body class="font-sans text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <a href="index.html?showSplash=true" class="flex items-center gap-2">
+                        <i class="fas fa-leaf text-green-600 text-2xl"></i>
+                        <span class="text-2xl font-bold text-green-600">WasteWise</span>
+                    </a>
+                </div>
+                <div class="flex gap-4 items-center">
+                    <a href="index.html" class="text-gray-600 hover:text-green-600 transition font-semibold" data-i18n="nav.back">Back to Home</a>
+                    <button id="langToggle" class="flex items-center text-gray-600 hover:text-green-600 transition font-semibold border border-gray-300 rounded px-3 py-1 hover:border-green-600">
+                        <i class="fas fa-language mr-1"></i> HI
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-blue text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <i class="fas fa-industry text-6xl mb-4"></i>
+            <h1 class="text-4xl font-bold mb-4" data-i18n="industrial.hero.title">Industrialist Module</h1>
+            <p class="text-xl" data-i18n="industrial.hero.subtitle">Track and Optimize Industrial Waste Production</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-3xl font-bold mb-8 text-gray-800" data-i18n="industrial.form.title">Industrial Waste Assessment</h2>
+                
+                <form id="industrialistForm" class="space-y-6">
+                    <!-- Company Name -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-building text-blue-600 mr-2"></i><span data-i18n="industrial.form.companyLabel">Company Name *</span>
+                            </label>
+                            <input type="text" id="companyName" placeholder="Enter company name" data-i18n="industrial.form.companyPlaceholder" data-i18n-attr="placeholder" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" />
+                        </div>
+
+                        <!-- Industry Type -->
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-industry text-blue-600 mr-2"></i><span data-i18n="industrial.form.industryLabel">Industry Type *</span>
+                            </label>
+                            <select id="industryType" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                <option value="" data-i18n="industrial.form.industryPlaceholder">Select industry type</option>
+                                <option value="Food Processing" data-i18n="industrial.form.industry.food">Food Processing</option>
+                                <option value="Manufacturing" data-i18n="industrial.form.industry.manufacturing">Manufacturing</option>
+                                <option value="Textile" data-i18n="industrial.form.industry.textile">Textile</option>
+                                <option value="Chemical" data-i18n="industrial.form.industry.chemical">Chemical</option>
+                                <option value="Metal &amp; Steel" data-i18n="industrial.form.industry.metal">Metal &amp; Steel</option>
+                                <option value="Pharmaceutical" data-i18n="industrial.form.industry.pharma">Pharmaceutical</option>
+                                <option value="Electronics" data-i18n="industrial.form.industry.electronics">Electronics</option>
+                                <option value="Construction" data-i18n="industrial.form.industry.construction">Construction</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Daily Production & Waste Type -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-cogs text-blue-600 mr-2"></i><span data-i18n="industrial.form.dailyProductionLabel">Daily Production (units) *</span>
+                            </label>
+                            <input type="number" id="dailyProduction" placeholder="Enter daily production" data-i18n="industrial.form.dailyProductionPlaceholder" data-i18n-attr="placeholder" min="0" step="1" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">
+                                <i class="fas fa-dumpster text-blue-600 mr-2"></i><span data-i18n="industrial.form.wasteTypeLabel">Waste Type *</span>
+                            </label>
+                            <select id="wasteType" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                                <option value="" data-i18n="industrial.form.wasteTypePlaceholder">Select waste type</option>
+                                <option value="Solid Waste" data-i18n="industrial.form.wasteType.solid">Solid Waste</option>
+                                <option value="Liquid Waste" data-i18n="industrial.form.wasteType.liquid">Liquid Waste</option>
+                                <option value="Hazardous Waste" data-i18n="industrial.form.wasteType.hazardous">Hazardous Waste</option>
+                                <option value="Mixed Waste" data-i18n="industrial.form.wasteType.mixed">Mixed Waste</option>
+                                <option value="Organic Waste" data-i18n="industrial.form.wasteType.organic">Organic Waste</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Daily Waste Quantity -->
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-700">
+                            <i class="fas fa-weight text-blue-600 mr-2"></i><span data-i18n="industrial.form.dailyWasteLabel">Daily Waste Quantity (kg) *</span>
+                        </label>
+                        <input type="number" id="dailyWasteQuantity" placeholder="Enter daily waste quantity" data-i18n="industrial.form.dailyWastePlaceholder" data-i18n-attr="placeholder" min="0" step="0.1" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" />
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-3 rounded-lg hover:shadow-lg transition">
+                        <i class="fas fa-chart-bar mr-2"></i><span data-i18n="industrial.form.submit">Generate Waste Report</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results" class="mt-12 hidden">
+                <div class="result-card bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-lg p-8">
+                    <h2 class="text-3xl font-bold mb-8 text-blue-800" data-i18n="industrial.results.title">Your Industrial Waste Report</h2>
+
+                    <!-- Company Info Banner -->
+                    <div class="bg-blue-600 text-white rounded-lg p-6 mb-8">
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div>
+                                <p class="text-blue-100 text-sm" data-i18n="industrial.results.companyLabel">Company</p>
+                                <p class="text-xl font-semibold" id="displayCompany"></p>
+                            </div>
+                            <div>
+                                <p class="text-blue-100 text-sm" data-i18n="industrial.results.industryLabel">Industry Type</p>
+                                <p class="text-xl font-semibold" id="displayIndustry"></p>
+                            </div>
+                            <div>
+                                <p class="text-blue-100 text-sm" data-i18n="industrial.results.wasteLabel">Waste Type</p>
+                                <p class="text-xl font-semibold" id="displayWasteType"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Grid -->
+                    <div class="grid md:grid-cols-2 gap-6 mb-12">
+                        <div class="bg-white rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-800" data-i18n="industrial.results.daily">Daily Waste</h3>
+                                <i class="fas fa-calendar-day text-4xl text-blue-300"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-blue-600" id="dailyWaste">0</p>
+                            <p class="text-xs text-gray-500" data-i18n="industrial.results.kgDay">kg/day</p>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-800" data-i18n="industrial.results.monthly">Monthly Waste</h3>
+                                <i class="fas fa-calendar text-4xl text-blue-300"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-blue-600" id="monthlyWaste">0</p>
+                            <p class="text-xs text-gray-500" data-i18n="industrial.results.kgMonth">kg/month</p>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-800" data-i18n="industrial.results.yearly">Yearly Waste</h3>
+                                <i class="fas fa-chart-line text-4xl text-blue-300"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-blue-600" id="yearlyWaste">0</p>
+                            <p class="text-xs text-gray-500" data-i18n="industrial.results.kgYear">kg/year</p>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6 shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-gray-800" data-i18n="industrial.results.perUnit">Waste per Unit</h3>
+                                <i class="fas fa-ratio text-4xl text-blue-300"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-blue-600" id="wastePerUnit">0</p>
+                            <p class="text-xs text-gray-500" data-i18n="industrial.results.unitLabel">kg/unit produced</p>
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="bg-white rounded-lg p-8">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800" data-i18n="industrial.recommendations.title">Waste Reduction Strategies</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- Waste Segregation -->
+                            <div class="border-l-4 border-green-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-green-700">
+                                    <i class="fas fa-sort mr-2"></i><span data-i18n="industrial.recommendations.segregation.title">Waste Segregation</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="industrial.recommendations.segregation.description">Implement proper waste segregation at the source.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.segregation.tip1">Separate hazardous and non-hazardous waste streams</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.segregation.tip2">Enable recycling and recovery of valuable materials</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.segregation.tip3">Reduce disposal costs by 30-40%</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Recycling Program -->
+                            <div class="border-l-4 border-blue-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-blue-700">
+                                    <i class="fas fa-recycle mr-2"></i><span data-i18n="industrial.recommendations.recycling.title">Recycling Program</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="industrial.recommendations.recycling.description">Develop comprehensive recycling initiatives.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.recycling.tip1">Recycle metals, plastics, and paper from production</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.recycling.tip2">Generate revenue from recycled materials</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.recycling.tip3">Reduce raw material procurement costs</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Process Optimization -->
+                            <div class="border-l-4 border-yellow-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-yellow-700">
+                                    <i class="fas fa-tools mr-2"></i><span data-i18n="industrial.recommendations.optimization.title">Process Optimization</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="industrial.recommendations.optimization.description">Optimize production processes to minimize waste generation.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.optimization.tip1">Review and improve production workflows</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.optimization.tip2">Implement lean manufacturing principles</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.optimization.tip3">Target: 25-35% waste reduction within 6 months</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Compliance & Standards -->
+                            <div class="border-l-4 border-purple-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-purple-700">
+                                    <i class="fas fa-clipboard-check mr-2"></i><span data-i18n="industrial.recommendations.compliance.title">Compliance &amp; Standards</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="industrial.recommendations.compliance.description">Ensure compliance with waste management regulations.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.compliance.tip1">Follow ISO 14001 environmental management standards</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.compliance.tip2">Maintain proper waste disposal documentation</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.compliance.tip3">Conduct regular environmental audits</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Staff Training -->
+                            <div class="border-l-4 border-teal-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-teal-700">
+                                    <i class="fas fa-graduation-cap mr-2"></i><span data-i18n="industrial.recommendations.training.title">Employee Training</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="industrial.recommendations.training.description">Train employees on waste management best practices.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.training.tip1">Conduct quarterly waste management training sessions</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.training.tip2">Create awareness about environmental responsibility</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.training.tip3">Incentivize waste reduction initiatives</span></li>
+                                </ul>
+                            </div>
+
+                            <!-- Energy Recovery -->
+                            <div class="border-l-4 border-orange-500 pl-6">
+                                <h4 class="text-lg font-semibold mb-2 text-orange-700">
+                                    <i class="fas fa-battery-full mr-2"></i><span data-i18n="industrial.recommendations.energy.title">Energy Recovery</span>
+                                </h4>
+                                <p class="text-gray-600 mb-3" data-i18n="industrial.recommendations.energy.description">Explore waste-to-energy opportunities.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.energy.tip1">Evaluate incineration with energy recovery options</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.energy.tip2">Reduce landfill dependence</span></li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><span data-i18n="industrial.recommendations.energy.tip3">Generate supplementary energy for operations</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Analysis -->
+                    <div class="mt-8 bg-white rounded-lg p-8">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800" data-i18n="industrial.monthly.title">Monthly Waste Distribution (Sample)</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="text-center">
+                                <p class="text-gray-600 text-sm mb-2" data-i18n="industrial.monthly.week1">Week 1</p>
+                                <div class="bg-gradient-to-t from-blue-500 to-blue-300 rounded-lg h-32"></div>
+                                <p class="text-sm text-gray-600 mt-2" id="week1"></p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-gray-600 text-sm mb-2" data-i18n="industrial.monthly.week2">Week 2</p>
+                                <div class="bg-gradient-to-t from-blue-600 to-blue-400 rounded-lg h-40"></div>
+                                <p class="text-sm text-gray-600 mt-2" id="week2"></p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-gray-600 text-sm mb-2" data-i18n="industrial.monthly.week34">Week 3 &amp; 4</p>
+                                <div class="bg-gradient-to-t from-blue-400 to-blue-200 rounded-lg h-36"></div>
+                                <p class="text-sm text-gray-600 mt-2" id="week34"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p data-i18n="industrial.footer" data-i18n-type="html">&copy; 2025 WasteWise. All rights reserved. | Designed for sustainable industry</p>
+        </div>
+    </footer>
+
+    <script src="js/industrialist.js"></script>
+    <script src="js/translations.js"></script>
+</body>
+</html>
